@@ -42,8 +42,8 @@ def extract_torrents(data):
                     peers = 0  # peers
                     # info_magnet = common.Magnet(magnet)
                     if filters.verify(name, size):
-                        # magnet = common.getlinks(magnet)
                         cont += 1
+                        # magnet = common.getlinks(magnet)
                         results.append({"name": name,
                                         "uri": magnet,
                                         # "info_hash": info_magnet.hash,
@@ -111,8 +111,16 @@ def search_episode(info):
     return search_general(info)
 
 
+def search_season(info):
+    provider.log.info(info)
+    info["type"] = "show"
+    info["query"] = info['title'].encode('utf-8') + ' %s %s' % (
+        common.season_names[settings.value.get("language", "es")], info['season'])  # define query
+    return search_general(info)
+
+
 # This registers your module for use
-provider.register(search, search_movie, search_episode)
+provider.register(search, search_movie, search_episode, search_season)
 
 del settings
 del browser
