@@ -14,7 +14,6 @@ filters = common.Filtering()
 
 
 def extract_torrents(data):
-    print data
     filters.information()  # print filters settings
     sint = common.ignore_exception(ValueError)(int)
     results = []
