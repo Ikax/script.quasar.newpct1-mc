@@ -71,10 +71,12 @@ def search_general(info):
     info["extra"] = settings.value.get("extra", "")  # add the extra information
     query = filters.type_filtering(info, '+')  # check type filter and set-up filters.title
     url_search = "%s/buscar" % settings.value["url_address"]
+    url_search = "%s/index.php?page=buscar&q=%%22%s%%22" % (settings.value["url_address"],query)
     provider.log.info(url_search)
     payload = {'q': query,
                }
     browser.open(url_search, payload=payload)
+    browser.open(url_search)
     return extract_torrents(browser.content)
 
 
